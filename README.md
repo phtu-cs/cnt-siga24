@@ -1,2 +1,2 @@
-# cct-siga20
-Continuous Curve Textures Project Page [SIGGRAPH Asia 2020]
+# cnt-siga24
+Compositional Neural Textures Project Page [SIGGRAPH Asia 2024]
