@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Compositional Neural Textures</title>
+
+
+<!-- Meta tags for Zotero grab citation -->
+<meta name="citation_title" content="Compositional Neural Textures">
+<meta name="citation_author" content="Tu, Peihan">
+<meta name="citation_author" content="Wei, Li-Yi">
+<meta name="citation_author" content="Zwicker, Matthias">
+<meta name="citation_publication_date" content="2024">
+<meta name="citation_conference_title" content="SIGGRAPH Asia 2024">
+<!-- <meta name="citation_volume" content="271"> -->
+<!-- <meta name="citation_issue" content="20"> -->
+<!-- <meta name="citation_firstpage" content="11761"> -->
+<!-- <meta name="citation_lastpage" content="11766"> -->
+<meta name="citation_pdf_url" content="https://phtu-cs.github.io/cct-siga20/index_files/siga24-cnt-Tu.pdf">
+
+<!-- Meta tags for search engines to crawl -->
+<meta name="robots" content="index,follow">
+<meta name="description" content="Repetitive patterns are ubiquitous in natural and man-made objects, with a variety of development tools and methods. Manual authoring provides unprecedented degree of freedom and control, but can require significant artistic expertise and manual labor. Computational methods can automate parts of the manual creation process, but are mainly tailored for discrete pixels or elements instead of more general continuous structures. We propose an example-based method to synthesize continuous curve patterns from exemplars. Our main idea is to extend prior sample-based discrete element synthesis methods to consider not only sample positions (geometry) but also their connections (topology). Since continuous structures can exhibit higher complexity than discrete elements, we also propose robust, hierarchical synthesis to enhance output quality. Our algorithm can generate a variety of continuous curve patterns fully automatically. For further quality improvement and customization, we also present an autocomplete user interface to facilitate interactive creation and iterative editing. We evaluate our methods and interface via different patterns, ablation studies, and comparisons with alternative methods.">
+<meta name="keywords" content="curve, textures, graphics, rendering, synthesis, vector graphics, patterns">
+<link rel="author" href="http://www.cs.umd.edu/~phtu/">
+
+<!-- Fonts and stuff -->
+<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800' rel='stylesheet' type='text/css'>-->
+<link rel="stylesheet" type="text/css" href="./index_files/project.css" media="screen">
+<link rel="stylesheet" type="text/css" media="screen" href="./index_files/iconize.css">
+<!--<script src="js/google-code-prettify/prettify.js"></script>--> 
+
+
+<style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm td{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}html.cye-enabled.cye-lm textarea{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cae6cd !important;border-color:rgb(50, 57, 51) !important;background-image:none !important;color:#000000  !important}</style></head>
+
+<body style="">
+  <div id="content">
+    <div id="content-inner">
+      <div class="section logos">
+	<!-- <a href="https://www.cs.umd.edu/" target="_blank"><img width="18%" height="18%" src="./index_files/umd.png"></a> -->
+<!-- 	<a href="http://www.cs.uni-saarland.de/" target="_blank"><img width="15%" height="15%" src="images/uds_csgrad_web.png"></a>
+	<a href="https://www.epfl.ch/en/" target="_blank"><img width="14%" height="14%" src="images/epfl.png"></a>
+	<a href="https://www.cs.ubc.ca/" target="_blank"><img width="14%" height="14%" src="images/ubc.png"></a> -->
+      </div>
+
+      <div class="section head">
+          <h1>Compositional Neural Textures</h1>
+
+	<div class="authors">
+	  <a href="http://www.cs.umd.edu/~phtu/" target="_blank">Peihan Tu</a><sup>1</sup>&nbsp;&nbsp;
+	  <a href="https://www.liyiwei.org/" target="_blank">Li-Yi Wei</a><sup>2</sup>&nbsp;&nbsp;
+	  <a href="http://www.cs.umd.edu/~zwicker/" target="_blank">Matthias Zwicker</a><sup>1</sup>
+	  <!-- &#160;&#160; -->
+	 <!--  <a href="http://people.mpi-inf.mpg.de/~elgharib/" target="_blank">Mohamed Elgharib</a><sup>1,2</sup>&#160;&#160;<br />
+	  <a href="https://people.epfl.ch/pascal.fua" target="_blank">Pascal Fua</a><sup>3</sup>&#160;&#160;
+	  <a href="http://people.mpi-inf.mpg.de/~hpseidel/" target="_blank">Hans-Peter Seidel</a><sup>1,2</sup>&#160;&#160;
+	  <a href="https://people.epfl.ch/helge.rhodin" target="_blank">Helge Rhodin</a><sup>3,4</sup>&#160;&#160;
+	  <a href="http://virtualhumans.mpi-inf.mpg.de/people/pons-moll.html" target="_blank">Gerard Pons-Moll</a><sup>1,2</sup>&#160;&#160;
+	  <a href="http://www.mpi-inf.mpg.de/~theobalt/" target="_blank">Christian Theobalt</a><sup>1,2</sup> -->
+	</div>
+
+	<div class="affiliations">
+	  <sup>1</sup><a href="https://www.cs.umd.edu/" target="_blank">University of Maryland, College Park</a> &nbsp;&nbsp;
+	  <sup>2</sup><a href="https://research.adobe.com/" target="_blank">Adobe Research</a> &nbsp;&nbsp;
+	  <br>
+	</div>
+
+<!--
+	<div class="venue">The IEEE/CVF Conference on Computer Vision and Pattern Recognition (<a href="http://cvpr2020.thecvf.com/" target="_blank">CVPR 2020</a>) (<strong><font color="red">Oral</font></strong>), Seattle, WA.</div>
+-->
+
+		<div class="venue">SIGGRAPH Asia, 2024 </div> 
+
+      </div>
+	  
+
+	  <!--	<div class="section abstract">
+	  <center>
+	    <h2>
+	      <b>Update: The dataset is now available for download</b>
+	      </h2>
+	    </center>
+	  <center>
+	    <h2>
+	      <b>Update: Live demo of VNect at CVPR17! (<a href="../VNectDemo/" target="_blank">More details</a>)</b>
+	      </h2>
+              </center>
+          </br>
+	  <center>
+	    <h2>
+                <b>Update: <a href="../VNectDemo/" target="_blank">VNect Demo</a> Model and Code Available For <br> Download as a <a href="#library"> C++ Library</a>! </b>
+	      </h2>
+	    </center>
+          </div> -->
+
+
+    <!--   <div class="section teaser">
+          <iframe width="640" height="360" src="//www.youtube-nocookie.com/embed/W1ZNFfftx2E?showinfo=0&controls=1&modestbranding=0&autohide=1&theme=light" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+        <video width="70%" class="tab" controls>Your browser does not support the &lt;video&gt; tag.
+              <source src="https://www.youtube.com/watch?v=l3h9JZHAOqI"/>
+        </video>
+ -->
+
+
+	<!-- <p style="font-size:11px; text-align:center">
+	  Download Video: <a href="content/XNect_SIGGRAPH2020.mp4" target="_blank">HD</a> (MP4, 1080p, 152 MB)
+	</p> -->
+      <!-- </div> -->
+
+<!--
+          <div class="section teaser">
+	  	<iframe src="./index_files/l3h9JZHAOqI.html" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="640" height="360" frameborder="0"></iframe>
+	<p style="font-size:11px; text-align:center">
+	  <a href="https://yuejiang-nj.github.io/papers/CVPR2020_SDFDiff/video.mp4" target="_blank">Download Video</a>(MP4, 57.7 MB)
+	</p>
+      </div>
+
+      <div class="section teaser">
+	  	<iframe src="./index_files/0A83pElG5gk.html" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="640" height="360" frameborder="0"></iframe>
+	<p style="font-size:11px; text-align:center">
+	  <a href="https://yuejiang-nj.github.io/papers/CVPR2020_SDFDiff/talk.mp4" target="_blank">Download Video</a>(MP4, 18.0 MB)
+	</p>
+      </div>
+
+-->
+
+	<div class="section teaser"> 
+	<figure align="center">
+	<img src="./index_files/teaser.png" align="center" width="900">
+	<figcaption style="font-family: Arial, sans-serif; font-size: 16px; color: gray;">
+	Compositional neural representation for texture editing. (a) We present a neural representation that decomposes textures into geometric elements with appearance features in a fully unsupervised manner. Geometric elements are represented by Gaussian functions corresponding to individual texture elements (textons), and each Gaussian has an associated appearance vector to encode texton appearance. Our network architecture and objectives are designed to encourage extraction of recurring textons and separation of geometry/structure and appearance, while preserving faithful reconstruction of the original texture. This facilitates a variety of editing operations and synthesis applications, such as transferring appearance from one texture towards the structure of another texture (b) or image (c), texture interpolation and morphing (d), manipulating the variations within a texture (e), edit propagation (f), and direct manipulation (e.g. moving and transforming) of the textons (g). </figcaption>
+	</figure>
+	</div>
+
+	           <div class="section teaser">
+		  	 Fast forward
+		  	<br>
+<iframe width="728" height="410" src="https://www.youtube.com/embed/vR_dFHmOihk?si=o30Qa0la5D16f0Hr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<br>
+<br>
+
+      </div>
+  
+      	           <div class="section teaser">
+      	           	 Supplementary video<br>
+<iframe width="728" height="410" src="https://www.youtube.com/embed/t15AtWZ4SGk?si=tcCf8q6brAreASyw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br>
+<br>
+      </div>
+
+      	           <div class="section teaser">
+      	           	 Talk <br> (Pending)
+      </div>
+      <div class="section abstract">
+	<h2>Abstract</h2>
+	<p>
+		
+Texture plays a vital role in enhancing visual richness in both real photographs and computer-generated imagery. However, the process of editing
+textures often involves laborious and repetitive manual adjustments of textons, which are the recurring local patterns that characterize textures. This
+work introduces a fully unsupervised approach for representing textures using a compositional neural model that captures individual textons. We represent each texton as a 2D Gaussian function whose spatial support approximates its shape, and an associated feature that encodes its detailed
+appearance. By modeling a texture as a discrete composition of Gaussian textons, the representation offers both expressiveness and ease of editing. Textures can be edited by modifying the compositional Gaussians within the latent space, and new textures can be efficiently synthesized by feeding the modified Gaussians through a generator network in a feed-forward manner. This approach enables a wide range of applications, including transferring appearance from an image texture to another image, diversifying textures,
+texture interpolation, revealing/modifying texture variations, edit propagation, texture animation, and direct texton manipulation. The proposed approach contributes to advancing texture analysis, modeling, and editing techniques, and opens up new possibilities for creating visually appealing images with controllable textures.
+
+	</p>
+      </div>
+
+
+<!--      <div class="section library">
+	<h2>VNect Library (New!!)</h2>
+        <a name="library"></a>
+	<p>
+        The C++ Library (Windows only) comes bundled with the lastest, greatest, faster and better VNect demo network, along with the kinematic skeleton fitting stage, and configurable filtering for various stages of the pipeline. The hyperparameters of the various stages are configurable, and the motion tracking results can be exported to BVH. For further details refer to the documentation supplied with the library. For access, see <a href='https://gvv-assets.mpi-inf.mpg.de/vnectlib'>GVV Assets Portal</a>.
+	</p>
+	<center>
+	  <ul>
+            <li class="grid_larger">
+	      <div class = "griditem_larger">
+                  <img src="images/vnect_bvh1.gif" alt="VNect BVH Example 1">
+		</div>
+	      </li>
+	    <li class="grid_larger"> 
+	       <div class = "griditem_larger"> 
+                  <img src="images/vnect_bvh2.gif" alt="VNect BVH Example 2">
+	       </div>
+	     </li>
+	    </ul>
+	    </center>
+</div> -->
+
+      <div class="section downloads">
+	<h2>Resources and Downloads</h2>
+	<center>
+	  <ul>
+            <li class="grid">
+	      <div class="griditem">
+	      	<br>
+		  Paper<br> 
+		<a href="index_files/siga24-cnt-Tu.pdf">
+		<img src="index_files/paper_thumbnail.png" style="width: 80%; height: 100%" alt = "paper (Arxiv)">
+		</a>
+		  <!-- <a href="https://hal.inria.fr/hal-03044852" target="_blank">PDF</a> --> 
+		</div>
+	      </li>
+
+            <li class="grid">
+	      <div class="griditem">
+	      	<br>
+		  Supplementary<br> 
+		<a href="index_files/supp.pdf">
+		<img src="index_files/supp_thumbnail.png" style="width: 80%; height: 100%" alt = "supp">
+		</a>
+		  <!-- <a href="https://hal.inria.fr/hal-03044852" target="_blank">PDF</a> --> 
+		</div>
+	      </li>
+
+	    <li class="grid"> 
+	       <div class="griditem"> <br>
+	     	Code<br> (Pending) <!--<a href="https://github.com/YueJiang-nj/CVPR2020-SDFDiff" target="_blank">Pending</a> -->
+                <!--<br />(See Contact section) -->
+	       </div>
+	     </li>
+
+	   <!--  <li class="grid"> 
+	       <div class = "griditem"> 
+		<a href="https://docs.google.com/spreadsheets/d/12dmh9_Tx7bj1UXgM5v1KIXdID7bhqFKI73XTWEcqzmY/edit?usp=sharing" target="_blank" class="imageLink"><img src = "images/qual.jpg"></a><br />
+	     	CC BY Sequences<br /> <a href="https://docs.google.com/spreadsheets/d/12dmh9_Tx7bj1UXgM5v1KIXdID7bhqFKI73XTWEcqzmY/edit?usp=sharing" target="_blank">Links</a>
+	       </div>
+	     </li> -->
+             
+	    </ul>
+	    </center>
+	    </div>
+<br>
+
+ <div class="section list">
+	<h2>Citation</h2>
+	<!--
+	<p><a href="https://yuejiang-nj.github.io/papers/CVPR2020_SDFDiff/reference.bib" target="_blank">BibTeX, 1 KB</a></p> -->
+	<div class="section bibtex">
+<pre>@inproceedings{Tu:2024:CNT,
+ title = {Compositional Neural Textures},
+ author = {Peihan Tu and Li-Yi Wei and Matthias Zwicker},
+ doi = {10.1145/3680528.3687561},
+ year = 2024,
+ month = 12,
+ booktitle = {SIGGRAPH Asia 2024 Conference Papers},
+ series = {SIGGRAPH Asia '24}
+}</pre>
+
+	  </div>
+ </div>
+   
+      <div class="section contact">
+	<h2>Contact</h2>
+        <a name="contact"></a>
+        For questions and clarifications, please get in touch with:<br>
+        Peihan Tu <a href="mailto:peihan.tu@gmail.com">peihan.tu@gmail.com</a> <br>
+      </div>
+
+      <div class="section">
+	<hr class="smooth">
+	  Template from GVV Group at MPI.
+	  <!-- <a href="http://www.zotero.org" target="_blank">Zotero</a> translator friendly. |  -->
+          <!--Page last updated--> 
+              <!--#config timefmt="%d-%b-%Y" --><!--#echo var="LAST_MODIFIED" -->
+              <!-- <a href="https://imprint.mpi-klsb.mpg.de/inf/xnect">Imprint</a> | -->
+              <!-- <a href="https://data-protection.mpi-klsb.mpg.de/inf/xnect">Data Protection</a>  -->
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+</body><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(238, 238, 238); height: 2350px; width: 1440px;"></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); height: 2350px; width: 1440px;"></div><div id="__genieContainer" style="all: initial;"></div></html>
