@@ -18,9 +18,13 @@
 
 <!-- Meta tags for search engines to crawl -->
 <meta name="robots" content="index,follow">
-<meta name="description" content="Repetitive patterns are ubiquitous in natural and man-made objects, with a variety of development tools and methods. Manual authoring provides unprecedented degree of freedom and control, but can require significant artistic expertise and manual labor. Computational methods can automate parts of the manual creation process, but are mainly tailored for discrete pixels or elements instead of more general continuous structures. We propose an example-based method to synthesize continuous curve patterns from exemplars. Our main idea is to extend prior sample-based discrete element synthesis methods to consider not only sample positions (geometry) but also their connections (topology). Since continuous structures can exhibit higher complexity than discrete elements, we also propose robust, hierarchical synthesis to enhance output quality. Our algorithm can generate a variety of continuous curve patterns fully automatically. For further quality improvement and customization, we also present an autocomplete user interface to facilitate interactive creation and iterative editing. We evaluate our methods and interface via different patterns, ablation studies, and comparisons with alternative methods.">
-<meta name="keywords" content="curve, textures, graphics, rendering, synthesis, vector graphics, patterns">
-<link rel="author" href="http://www.cs.umd.edu/~phtu/">
+<meta name="description" content="Texture plays a vital role in enhancing visual richness in both real photographs and computer-generated imagery. However, the process of editing textures often involves laborious and repetitive manual adjustments of textons, which are the recurring local patterns that characterize textures. This
+work introduces a fully unsupervised approach for representing textures using a compositional neural model that captures individual textons. We represent each texton as a 2D Gaussian function whose spatial support approximates its shape, and an associated feature that encodes its detailed
+appearance. By modeling a texture as a discrete composition of Gaussian textons, the representation offers both expressiveness and ease of editing. Textures can be edited by modifying the compositional Gaussians within the latent space, and new textures can be efficiently synthesized by feeding the modified Gaussians through a generator network in a feed-forward manner. This approach enables a wide range of applications, including transferring appearance from an image texture to another image, diversifying textures,
+texture interpolation, revealing/modifying texture variations, edit propagation, texture animation, and direct texton manipulation. The proposed approach contributes to advancing texture analysis, modeling, and editing techniques, and opens up new possibilities for creating visually appealing images with controllable textures.
+">
+<meta name="keywords" content="textures, graphics, rendering, synthesis, neural network, compositional, representation learning, Gaussians">
+<link rel="author" href="https://phtu-cs.github.io/website/">
 
 <!-- Fonts and stuff -->
 <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,800italic,400,700,800' rel='stylesheet' type='text/css'>-->
@@ -196,8 +200,8 @@ texture interpolation, revealing/modifying texture variations, edit propagation,
 	      <div class="griditem">
 	      	<br>
 		  Paper<br> 
-		<a href="index_files/siga24-cnt-Tu.pdf">
-		<img src="index_files/paper_thumbnail.png" style="width: 80%; height: 100%" alt = "paper (Arxiv)">
+		<a href="./index_files/siga24-cnt-Tu.pdf">
+		<img src="./index_files/paper_thumbnail.png" style="width: 80%; height: 100%" alt = "paper (Arxiv)">
 		</a>
 		  <!-- <a href="https://hal.inria.fr/hal-03044852" target="_blank">PDF</a> --> 
 		</div>
@@ -207,8 +211,8 @@ texture interpolation, revealing/modifying texture variations, edit propagation,
 	      <div class="griditem">
 	      	<br>
 		  Supplementary<br> 
-		<a href="index_files/supp.pdf">
-		<img src="index_files/supp_thumbnail.png" style="width: 80%; height: 100%" alt = "supp">
+		<a href="./index_files/supp.pdf">
+		<img src="./index_files/supp_thumbnail.png" style="width: 80%; height: 100%" alt = "supp">
 		</a>
 		  <!-- <a href="https://hal.inria.fr/hal-03044852" target="_blank">PDF</a> --> 
 		</div>
